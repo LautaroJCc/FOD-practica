@@ -14,6 +14,8 @@ máquinas.
 - El archivo maestro debe crearse en la siguiente ubicación física: /var/log.
 }
 
+//ESTA MAL EL EJERCICIO, EL OTRO ESTA BIEN
+
 program ejercicio4;
 
 const
