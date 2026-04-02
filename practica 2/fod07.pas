@@ -4,8 +4,8 @@ stock de los productos que vende. Para ello, genera un archivo maestro donde fig
 los productos que comercializa. De cada producto se maneja la siguiente información:
 código de producto, nombre comercial, precio de venta, stock actual y stock mínimo.
 Diariamente se genera un archivo detalle donde se registran todas las ventas de productos
-
-realizadas. De cada venta se registran: código de producto y cantidad de unidades vendidas.
+realizadas.
+De cada venta se registran: código de producto y cantidad de unidades vendidas.
 Se pide realizar un programa con opciones para:
 a. Actualizar el archivo maestro con el archivo detalle, sabiendo que:
 ● Ambos archivos están ordenados por código de producto.
