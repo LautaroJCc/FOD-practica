@@ -141,13 +141,13 @@ type
             end;
           
           {supongo que se recibe info de todos los municipios si o si, pero igual uso while}
-          while (d.cod_localidad <> loc) or (d.cod_cepa <> cepa) do
+          while (d.cod_localidad <> valorGrande) and (d.cod_cepa <> valorGrande) and ((d.cod_localidad <> loc) or (d.cod_cepa <> cepa)) do //no estoy seguro
             leer2(m,d);
    
           d.cant_recup := d.cant_recup + rec; //2
           d.cant_fallecidos := d.cant_fallecidos + fall; //1
-          d.cant_casos_nue := d.cant_casos_nue + casos_nue; //4      //no estoy seguro de este
-          d.cant_casos_act := d.cant_casos_act + casos_act; //3
+          d.cant_casos_nue := casos_nue; //4      //no estoy seguro de este
+          d.cant_casos_act := casos_act; //3
           
           seek(m, filepos(m)-1);
           write(m, d);
@@ -159,17 +159,24 @@ type
   procedure informar(var m: archivo2);
     var
       d: dat;
-      cont: integer;
+      cont, total: integer;
     begin
-      cont := 0;
+      total := 0;
+      reset(m);    
       leer2(m, d);
-      while (d.cod_localidad <> valorGrande) do
+      while (d.cod_localidad <> valorGrande) do      
         begin
-          if (d.cant_casos_nue > max) then
-            cont := cont +1;
-          leer2(m, d);
-        end;
-      writeln(cont);
+          cod := d.cod_localidad;
+          cont := 0;
+          while (d.cod_localidad = cod) do
+            begin
+              cont := cont + d.cant_casos_act;
+              leer2(m, d);
+            end;
+          if (cont > max) then
+            total := total +1;
+        end;     
+      writeln(total);
       close(m);
     end;
     
