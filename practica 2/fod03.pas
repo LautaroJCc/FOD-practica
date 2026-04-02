@@ -31,9 +31,7 @@ type
   end;
   
   archivo2 = file of producto2;
-  
   detalles = array [1..max] of archivo2;
-  
   texto = text;
   
 procedure leer(var arch: archivo2; var pro2: producto2);
@@ -44,50 +42,14 @@ begin
     pro2.cod := valorAlto;
 end;
 
-
 procedure actualizar(var arch: archivo; var v: detalles);
 var
   pro2: producto2;
   pro: producto;
   i, cant, cod: integer;
 begin
-  reset(arch);
-
-  for i := 1 to max do
-  begin
-    reset(v[i]);
-    leer(v[i], pro2);
-
-    while (pro2.cod <> valorAlto) do
-    begin
-      cod := pro2.cod;
-      cant := 0;
-
-      while (pro2.cod = cod) do
-      begin
-        cant := cant + pro2.cant_vend;
-        leer(v[i], pro2);
-      end;
-
-      { buscar producto en maestro }
-      seek(arch, 0);
-      read(arch, pro);
-
-      while (pro.cod <> cod) do
-        read(arch, pro);
-
-      { actualizar stock }
-      seek(arch, filepos(arch)-1);
-      pro.stock_dispo := pro.stock_dispo - cant;
-      write(arch, pro);
-    end;
-
-    close(v[i]);
-  end;
-
-  close(arch);
+  
 end;
-
 
 procedure cargar_txt(var arch: archivo; var arch2: texto);
 var 
@@ -109,7 +71,6 @@ begin
       writeln(arch2);
     end;
   end;
-
   close(arch);
   close(arch2);
 end;
@@ -152,7 +113,6 @@ var
   maestro: archivo;
   v: detalles;
   txt: text;
-  i: integer;
 
 begin
   assign(maestro,'maestro');
