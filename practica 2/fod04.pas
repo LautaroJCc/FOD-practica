@@ -94,8 +94,7 @@ type
           close(v[i]);     
         end;
     end;
-        
-    
+            
 var
   v: detalles;
   maes: maestro;
@@ -103,7 +102,5 @@ var
 begin
   iniciar_detalles(v);
   assign(mae,'/var/log/maestro');
-  
-  
 end.
   
