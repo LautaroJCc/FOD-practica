@@ -31,51 +31,118 @@ type
   end;
   
   archivo2 = file of producto2;
-  detalles = array [1..max] of archivo2;
+  detalles = array [1..max] of archivo2;   //ya esta cargado
+  regs_det = array [1..max] of producto2;  //ya esta cargado
   texto = text;
   
-procedure leer(var arch: archivo2; var pro2: producto2);
-begin
-  if not eof(arch) then
-    read(arch, pro2)
-  else
-    pro2.cod := valorAlto;
-end;
-
-procedure actualizar(var arch: archivo; var v: detalles);
-var
-  pro2: producto2;
-  pro: producto;
-  i, cant, cod: integer;
-begin
-  
-end;
-
-procedure cargar_txt(var arch: archivo; var arch2: texto);
-var 
-  pro: producto;
-begin
-  rewrite(arch2);
-  reset(arch);
-
-  while not eof(arch) do
-  begin
-    read(arch, pro);
-
-    if (pro.stock_dispo < pro.stock_min) then
+  procedure leer1(var arch: archivo; var pro: producto);
     begin
-      writeln(arch2, 'Producto: ', pro.nombre);
-      writeln(arch2, 'Descripcion: ', pro.desc);
-      writeln(arch2, 'Stock disponible: ', pro.stock_dispo);
-      writeln(arch2, 'Precio: ', pro.precio);
-      writeln(arch2);
+      if (not(EOF(arch))) then
+        read(arch, pro)
+      else
+        pro.cod := valorAlto;
     end;
-  end;
-  close(arch);
-  close(arch2);
-end;
   
-  procedure asignarDetalles(var v: detalles);
+  procedure leer2(var arch: archivo2; var pro: producto2);
+    begin
+      if not eof(arch) then
+        read(arch, pro)
+      else
+        pro.cod := valorAlto;
+    end;
+
+  procedure minimo(var v: regs_det; var v2: detalles; var minR: producto2);
+    var
+      i, pos, cod: integer;
+      
+    begin
+      pos := -1;
+      cod := valorAlto;
+      for i:=1 to max do
+        begin
+          if (v[i].cod < cod) then
+            begin
+              cod := v[i].cod;
+              pos := i;
+              minR := v[pos];
+            end;
+        end;
+      if (pos <> -1) then
+        leer2(v2[pos], v[pos]);
+    end;
+
+  procedure actualizar(var arch: archivo; var v: detalles);
+    var
+      minR: producto2;
+      pro: producto;
+      j, total, cod: integer;
+      v2: regs_det;
+      
+    begin
+      //cargar vec de registros y abrir los 30
+      for j := 1 to max do
+        begin
+         reset(v[j]);
+         leer2(v[j], v2[j]);
+        end;
+    
+      reset(arch);
+      minimo(v2, v, minR);
+          
+      while (minR.cod <> valorAlto) do
+        begin
+          cod := minR.cod;
+          total := 0;
+          
+          while (cod = minR.cod) do { Acumulo todos los registros que tienen el mismo cod }
+            begin
+              total := total + minR.cant_vend;
+              
+              minimo(v2, v, minR);
+            end;
+          
+          {busco maestro}
+          leer1(arch, pro);
+          while (pro.cod <> cod) do
+            leer1(arch, pro);
+          
+          pro.stock_dispo := pro.stock_dispo - total;
+          
+          //agrego
+          seek(arch, filepos(arch)-1);
+          write(arch, pro);
+        end;
+        
+      for j := 1 to max do
+        close(v[j]);    
+      close(arch);
+    end;
+    
+  procedure cargar_txt(var arch: archivo; var arch2: texto);
+    var 
+      pro: producto;
+    begin
+      rewrite(arch2);
+      reset(arch);
+    
+      leer1(arch, pro);
+      while (pro.cod <> valorAlto) do
+        begin
+          if (pro.stock_dispo < pro.stock_min) then
+            begin
+              writeln(arch2, 'Producto: ', pro.nombre);
+              writeln(arch2, 'Descripcion: ', pro.desc);
+              writeln(arch2, 'Stock disponible: ', pro.stock_dispo);
+              writeln(arch2, 'Precio: ', pro.precio);
+              writeln(arch2);
+            end;
+          leer1(arch, pro);  
+        end;
+      close(arch);
+      close(arch2);
+    end;
+
+procedure asignarDetalles(var v: detalles);
 begin
   assign(v[1],'detalle1');
   assign(v[2],'detalle2');
@@ -117,12 +184,9 @@ var
 begin
   assign(maestro,'maestro');
   assign(txt,'reporte.txt');
-
   asignarDetalles(v);
 
   actualizar(maestro, v);
 
   cargar_txt(maestro, txt);
 end.
-  
-  
