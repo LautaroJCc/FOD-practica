@@ -129,7 +129,8 @@ begin
   assign(maestro, 'maestro');
   assign(detalle, 'detalle');
   assign(txt, 'puntoB.txt');
-  
+
+  //fala menu japa
   actualizar(maestro, detalle);
   puntoB(maestro, txt);   
 end.
