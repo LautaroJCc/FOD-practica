@@ -57,33 +57,33 @@ end;
   var
     p: producto;
     v: venta;
-    cod: integer;
+    cod, stock_aux: integer;
     
   begin
     assign(arch, 'nose');
     reset(arch);
     assign(m, 'maestro');
     reset(m);
-    
+
     leer1(m, p);
     leer2(arch, v);
     while (v.cod_pro <> valorGrande) do
       begin
         cod := v.cod_pro;
-      
-        while (p.cod_pro <> cod) do
-          leer1(m, p);
+        stock_aux := 0;
         
         while (v.cod_pro = cod) do
           begin
-            p.stock_act := p.stock_act - v.cant_u_ven;
+            stock_aux := stock_aux + v.cant_u_ven;
             leer2(arch, v);
           end;
         
+        while (p.cod_pro <> cod) do
+          leer1(m, p);
+
+        p.stock_act := p.stock_act - stock_aux;
         seek(m, filepos(m)-1);
         write(m, p);
-        
-        // leer1(m, p); necesario???????????????????'''''
       end;
     close(arch);
     close(m);
