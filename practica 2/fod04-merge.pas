@@ -85,6 +85,7 @@ type
       for i:=1 to max do
         begin
           {no entendi bien los or y =}
+          //para fecha pude haber utilizado AAAAMMDD, A es año, M es mes, D es dia, ejemplo: 20260522 (2026-05-22)
           if (v2[i].cod_usuario < cod) or
                                           ((v2[i].cod_usuario = cod) and
                                           ((v2[i].fecha.anio < f.anio) or
