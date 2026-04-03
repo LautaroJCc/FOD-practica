@@ -116,8 +116,7 @@ type
     
     begin
       cargar(v, v2);
-      minimo(v, min, v2);   
-      assign(m, 'maestro');
+      minimo(v, min, v2);    
       reset(m);
       mas_vendido := -1; 
       cod_mas_ven := -1; //cod
@@ -157,6 +156,7 @@ var
   m: maestro;
 
 begin
+  assign(m, 'maestro');
   actualizar(v, m);
 end.
   
