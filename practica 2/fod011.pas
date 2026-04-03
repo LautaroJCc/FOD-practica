@@ -132,5 +132,6 @@ var
   m: maestro;
 
 begin
+  assign(m, 'maestro');
   actualizar(v, m);
 end.
