@@ -133,6 +133,5 @@ var
 
 begin
   assign(arch, 'archivo');
-  reset(arch);
   informar(arch);
 end.
