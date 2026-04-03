@@ -157,7 +157,6 @@ type
     
       cargar(v, v2);
       minimo(v, min, v2);     
-      assign(m, 'maestro');
       reset(m);
       
       leer1(m, mae);
@@ -193,6 +192,7 @@ var
   m: maestro;
 
 begin
+  assign(m, 'maestro');
   actualizar(v, m);
 end.
     
