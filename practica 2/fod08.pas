@@ -55,8 +55,7 @@ type
       mes: rango_mes;
       monto_total, tot_men, mon_anio_cli: real;
       
-    begin
-      assign(arch, 'maestro');
+    begin 
       reset(arch);
       
       leer(arch, d);
@@ -96,5 +95,6 @@ var
   m: maestro;
   
 begin
+  assign(arch, 'maestro');
   informar(m);
 end.
