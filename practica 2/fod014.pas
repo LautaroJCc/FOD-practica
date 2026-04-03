@@ -85,7 +85,7 @@ type
     begin
       for i:=1 to dimf do
         begin
-          write('ingrese un nombre: '); readln(nombre);
+          write('ingrese un nombre: '); readln(nombre); //NO ESTOY SEGURO, CREO QUE ERA MEJOR PONERLOS EN PPL Y NO POR TECLADO
           assign(v[i], nombre);
           reset(v[i]); 
           leer2(v[i], v2[i]);     
@@ -107,7 +107,7 @@ type
       mes := 13;
       hsSalida := 9999;
       for i:=1 to dimf do
-        begin
+        begin //para fecha podia haber usado AAAAMMDD
           if (v2[i].dat.destino < destino) or
    ((v2[i].dat.destino = destino) and (v2[i].dat.fecha.anio < anio)) or
    ((v2[i].dat.destino = destino) and (v2[i].dat.fecha.anio = anio) and (v2[i].dat.fecha.mes < mes)) or
