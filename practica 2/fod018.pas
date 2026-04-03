@@ -84,7 +84,6 @@ type
       tot_prov, tot_mun, tot_hos, tot_loc: integer;
       
     begin 
-      assign(arch, 'archivo');
       reset(arch);
     
       leer(arch, h);
@@ -139,6 +138,7 @@ var
   txt: text;
   
 begin
+  assign(arch, 'archivo');
   assign(txt, 'texto.txt');
   reset(txt); 
 
