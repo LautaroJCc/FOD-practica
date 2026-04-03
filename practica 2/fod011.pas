@@ -94,7 +94,7 @@ type
       cargar(v2, v);
       minimo(v2, v, minR);
       reset(m);
-      
+      leer2(m, mae);
       while (minR.info.nom_prov <> valorGrande) do
         begin
           act.info.nom_prov := minR.info.nom_prov;
@@ -111,7 +111,6 @@ type
             end;
           
           {busco maestro}
-          leer2(m, mae);
           while (mae.nom_prov <> act.info.nom_prov) do
             leer2(m, mae);
           
