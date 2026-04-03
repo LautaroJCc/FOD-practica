@@ -88,7 +88,7 @@ type
     
       reset(arch);
       minimo(v2, v, minR);
-          
+      leer1(arch, pro);
       while (minR.cod <> valorAlto) do
         begin
           cod := minR.cod;
@@ -102,7 +102,6 @@ type
             end;
           
           {busco maestro}
-          leer1(arch, pro);
           while (pro.cod <> cod) do
             leer1(arch, pro);
           
