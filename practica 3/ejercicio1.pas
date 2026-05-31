@@ -5,6 +5,8 @@ la posición del registro a borrar y luego truncando el archivo en la posición 
 registro de forma tal de evitar duplicados.
 }
 
+//utiliza el método de baja física por generación de un nuevo archivo
+
 program ejercicio4;
 
 const
