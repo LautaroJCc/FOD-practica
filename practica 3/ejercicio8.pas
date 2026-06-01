@@ -25,6 +25,8 @@ borrar exista debe utilizar el módulo ExisteDistribucion. En caso de no existir
 se debe informar “Distribución no existente”.
 }
 
+//LISTA ENLAZADA
+
 program ejercicio8;
 
 type
