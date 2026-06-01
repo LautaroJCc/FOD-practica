@@ -139,7 +139,7 @@ begin
         begin
           read(a, d);
           { Importante: Solo borramos si el registro esta activo (cant_desarr >= 0) }
-          if (d.nombre = nombre_baja) and (d.cant_desarr >= 0) then
+          if (d.nombre = nombre_baja) and (d.cant_desarr >= 0) then //(d.cant_desarr >= 0) innecesario
             begin
               pos_a_borrar := (filepos(a) - 1);
               
